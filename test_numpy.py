@@ -108,5 +108,53 @@ for thread in threads:
     thread.join()
     
     
-# Conclusion
-# NumPy is a powerful library that can be used in various software testing scenarios, including data generation, UI testing, API testing, database testing, performance testing, security testing, and load testing. By leveraging NumPy's array manipulation and mathematical functions, testers can efficiently handle complex data structures and computations in their testing processes. This can lead to more effective and comprehensive testing, ultimately improving the quality and reliability of software products.
+# Generate synthetic data for regression testing
+X = np.random.rand(100, 1)  # 100 samples, 1 feature
+y = 3 * X.squeeze() + 2 + np.random.randn(100) * 0.1  # Linear relation with noise
+
+from sklearn.linear_model import LinearRegression
+
+# Train a simple linear regression model
+model = LinearRegression()
+model.fit(X, y)
+
+# Validate model predictions
+predictions = model.predict(X)
+mse = np.mean((predictions - y) ** 2)
+print(f"Mean Squared Error: {mse}")
+
+
+import numpy as np
+
+# Generate high volume data
+high_volume_data = np.random.rand(1000000, 10)  # 1 million rows, 10 columns
+
+# Boundary testing
+boundary_data = np.array([np.finfo(np.float64).max, np.finfo(np.float64).min])
+
+print("High volume data and boundary data generated for stress testing.")
+
+import numpy as np
+
+# Generate data with potential duplicates
+data_with_duplicates = np.random.randint(0, 10, size=(100, 5))
+
+# Detect duplicates
+unique_data, indices = np.unique(data_with_duplicates, axis=0, return_index=True)
+duplicates = np.setdiff1d(np.arange(data_with_duplicates.shape[0]), indices)
+
+print(f"Found {len(duplicates)} duplicate rows.")
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Generate synthetic time series data
+time_series_data = np.sin(np.linspace(0, 20, 100)) + np.random.randn(100) * 0.1
+
+# Introduce anomalies
+time_series_data[50:55] += 5
+
+# Plot time series data
+plt.plot(time_series_data)
+plt.title("Synthetic Time Series Data with Anomalies")
+plt.show()
