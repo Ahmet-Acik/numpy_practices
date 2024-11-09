@@ -1,6 +1,6 @@
 import numpy as np
 
-'''
+"""
         Data Type and Data Structure in NumPy
     Data Type:
 
@@ -69,7 +69,7 @@ import numpy as np
         array[condition]: Filter arrays based on a condition. 
         
 
-'''
+"""
 # create an array from a list
 arr = np.array([1, 2, 3, 4, 5])
 print(arr)
@@ -79,24 +79,25 @@ arr_2d = np.array([[1, 2, 3, 4], [5, 6, 7, 8]])
 print(f"arr_2d {arr_2d}")
 
 # create an array with zeros
-arr_zeros = np.zeros(5, dtype=int, order='C')
+arr_zeros = np.zeros(5, dtype=int, order="C")
 print(arr_zeros)
 
 # create an array with ones
-arr_once =np.ones(5, dtype=int, order='C')
+arr_once = np.ones(5, dtype=int, order="C")
 print(arr_once)
 
 # create an array with a range of values
-arr_range = np.arange(10, 20, 2) # start, stop, step
+arr_range = np.arange(10, 20, 2)  # start, stop, step
 print(f"arr_range {arr_range}")
 
-# create an array with linspace (linear space) 
-arr_lins = np.linspace(10, 20, 2) # start, stop, num
+# create an array with linspace (linear space)
+arr_lins = np.linspace(10, 20, 2)  # start, stop, num
 print(f"arr_lins {arr_lins}")
 
 # create an array with logspace (logarithmic space)
 arr_logs = np.logspace(1, 10, num=5, base=10.0)
 print(arr_logs)
+
 
 # Reshape an array
 arr_r = np.arange(8).reshape(2, 4)
@@ -106,9 +107,9 @@ print(f"Reshape arr_r {arr_r}")
 arr_f = arr.flatten()
 print(f"arr_f {arr_f}")
 
-# Transpose an array 
-arr_t = arr.transpose() 
-print(f"arr_t {arr_t}") 
+# Transpose an array
+arr_t = arr.transpose()
+print(f"arr_t {arr_t}")
 
 # Concatenate arrays
 concatenated = np.concatenate((arr_2d, arr_r))
@@ -132,17 +133,62 @@ print(f"dot_product {dot_product}")
 
 # Matrix product of two arrays
 matrix_product = np.matmul(arr_once, arr_t)
-print(f"matrix_product {matrix_product}")   
+print(f"matrix_product {matrix_product}")
 
 # Generate random numbers
 random_numbers = np.random.rand(5)
 print(f"random_numbers: {random_numbers}")
 
+
+# functions to test
+
+import numpy as np
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+
+def function_to_test(x):
+    """Multiply input array by 2."""
+    logging.info(f"Received input of type: {type(x)}")
+    if not isinstance(x, np.ndarray):
+        raise TypeError("Input must be a NumPy array")
+    return x * 2
+
+def validate_results(input_data, expected_results):
+    """Validate the results of the function_to_test."""
+    actual_results = function_to_test(input_data)
+    assert np.array_equal(expected_results, actual_results), "Test failed!"
+    logging.info("Validation passed!")
+
+def perform_statistical_analysis(data):
+    """Perform statistical analysis on the given data."""
+    mean = np.mean(data)
+    std_dev = np.std(data)
+    logging.info(f"Mean: {mean}, Standard Deviation: {std_dev}")
+    return mean, std_dev
+
+def monte_carlo_simulation(num_simulations, threshold=1.96):
+    """Perform a Monte Carlo simulation."""
+    simulation_results = np.random.normal(loc=0, scale=1, size=num_simulations)
+    probability = np.mean(simulation_results > threshold)
+    logging.info(f"Probability of result > {threshold}: {probability}")
+    return probability
+
 def main():
-    print("Hello World!")
-    print(np.random.rand(5))
-    
-'''
+    # Validate results
+    input_data = np.array([1, 2, 3, 4, 5])
+    expected_results = np.array([2, 4, 6, 8, 10])
+    validate_results(input_data, expected_results)
+
+    # Statistical analysis
+    random_data = np.random.rand(1000)
+    perform_statistical_analysis(random_data)
+
+    # Monte Carlo simulation
+    monte_carlo_simulation(10000)
+
+"""
 Use Cases of NumPy in Software Testing
 
 Data Generation for Testing:
@@ -161,7 +207,7 @@ Validation and Verification:
 Simulation and Modeling:
     Monte Carlo Simulations: Use NumPy for simulations that require random sampling and probabilistic modeling.
     Mathematical Modeling: Utilize NumPy for creating and testing mathematical models used in the software.
-'''
+"""
 
 # Generate random data for testing
 random_data = np.random.rand(1000)
@@ -172,9 +218,11 @@ edge_case_data = np.array([0, -1, 1e10, -1e10, np.inf, -np.inf, np.nan])
 # Performance testing with large data sets
 large_data_set = np.random.rand(1000000)
 
+
 # Expected results for validation
-def function_to_test(x):
+def function_to_test2(x):
     return x * 2
+
 
 input_data = np.array([1, 2, 3, 4, 5])
 expected_results = np.array([2, 4, 6, 8, 10])
@@ -197,4 +245,4 @@ probability = np.mean(simulation_results > 1.96)
 print(f"Probability of result > 1.96: {probability}")
 
 if __name__ == "__main__":
-   pass
+    main()
